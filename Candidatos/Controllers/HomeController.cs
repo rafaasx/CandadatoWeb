@@ -18,18 +18,5 @@ namespace Candidatos.Controllers
 
             return View();
         }
-
-
-        [System.Web.Mvc.HttpPost]
-        public ActionResult Enviar(CandidatoModels pCandidatoInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                //CandidatoBLL candidatoBLL = new CandidatoBLL();
-                //Retorno retorno = candidatoBLL.Enviar(pCandidatoInfo);
-            }
-
-            return View(pCandidatoInfo);
-        }
     }
 }

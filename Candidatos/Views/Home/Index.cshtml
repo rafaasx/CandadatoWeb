@@ -2,19 +2,7 @@
     ViewBag.Title = "Caditatos";
 }
 
-<div ng-controller="HomeController as $modal">
-    <script type="text/ng-template" id="Modal.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title-1"><i class="fa fa-info-circle"></i> Atenção</h3>
-        </div>
-        <div class="modal-body" id="modal-body-1">
-            <div ng-bind-html="retorno"></div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="$close(true)">OK</button>
-        </div>
-    
-    </script>
+<div ng-controller="HomeController">
     <div class="page-header">
         <h1>
             Candidatos 1.0 ®
@@ -24,6 +12,9 @@
         </h1>
     </div>
     <div class="bs-example" data-example-id="horizontal-static-form-control">
+        <div role="alert" ng-class="{'alert alert-success': success, 'alert alert-danger': !success}" ng-show="mensagem">
+            <p><span class="glyphicon glyphicon-info-sign"></span> {{mensagem}}</p>
+        </div>
         <form name="form" novalidate>
             <div class="panel panel-info">
                 <div class="panel-heading">Dados do candidato</div>

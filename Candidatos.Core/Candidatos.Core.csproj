@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\CandidatoBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\Mail.cs" />
     <Compile Include="Util\MailConfiguration.cs" />

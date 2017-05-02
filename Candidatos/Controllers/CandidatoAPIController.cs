@@ -8,7 +8,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Candidatos.Models;
 using Candidatos.Core;
-using Candidatos.Core.BLL;
 using Candidatos.Core.Util;
 
 namespace Candidatos.Controllers
@@ -16,9 +15,9 @@ namespace Candidatos.Controllers
     public class CandidatoController : ApiController
     {
         /// <summary>
-        /// Post/_id
+        /// Post
         /// </summary>
-        /// <param name="model">Tarefa</param>
+        /// <param name="model">Candidato</param>
         /// <returns></returns>
         [ResponseType(typeof(CandidatoModels))]
         public IHttpActionResult PostCandidato(CandidatoModels model)
@@ -29,6 +28,7 @@ namespace Candidatos.Controllers
             }
             try
             {
+
                 if (string.IsNullOrEmpty(model.Nome))
                     throw new Exception("Nome é obrigatório");
                 if (string.IsNullOrEmpty(model.Email))
@@ -40,19 +40,22 @@ namespace Candidatos.Controllers
                 if (model.Html >= media || model.Css >= media ||
                     model.Javascript >= media)
                 {
-                    mail.Body(model.Nome, "programador Front - End");
+                    mail.Body = string.Format("Olá {0}. <br><br>Obrigado por se candidatar, assim que tivermos uma vaga disponível" +
+                        " para {1} entraremos em contato.", model.Nome, "programador Front - End");
                     mail.Enviar();
                     model.FrontEnd = true;
                 }
                 if (model.Python >= media || model.Django >= media)
                 {
-                    mail.Body(model.Nome, "programador Back - End");
+                    mail.Body = string.Format("Olá {0}. <br><br>Obrigado por se candidatar, assim que tivermos uma vaga disponível" +
+                    " para {1} entraremos em contato.", model.Nome, "programador Back - End");
                     mail.Enviar();
                     model.BackEnd = true;
                 }
                 if (model.Android >= media || model.Ios >= media)
                 {
-                    mail.Body(model.Nome, "programador Mobile");
+                    mail.Body = string.Format("Olá {0}. <br><br>Obrigado por se candidatar, assim que tivermos uma vaga disponível" +
+                    " para {1} entraremos em contato.", model.Nome, "programador Mobile");
                     mail.Enviar();
                     model.Mobile = true;
                 }
@@ -60,7 +63,8 @@ namespace Candidatos.Controllers
                     model.Android < media && model.Ios < media && model.Python < media &&
                     model.Django < media)
                 {
-                    mail.Body(model.Nome, "programador");
+                    mail.Body = string.Format("Olá {0}. <br><br>Obrigado por se candidatar, assim que tivermos uma vaga disponível" +
+                    " para {1} entraremos em contato.", model.Nome, "programador");
                     mail.Enviar();
                     model.Programador = true;
                 }
@@ -71,7 +75,5 @@ namespace Candidatos.Controllers
             }
             return Ok(model);
         }
-
     }
-
 }
