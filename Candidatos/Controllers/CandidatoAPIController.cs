@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -30,11 +31,11 @@ namespace Candidatos.Controllers
             {
 
                 if (string.IsNullOrEmpty(model.Nome))
-                    throw new Exception("Nome é obrigatório");
-                if (string.IsNullOrEmpty(model.Email))
-                    throw new Exception("E-mail é obrigatório");
+                    throw new Exception("Nome não pode ser nulo.");
+                if (string.IsNullOrEmpty(model.Email) || !Regex.IsMatch(model.Email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+                    throw new Exception("E-mail não pode ser nulo ou inválido.");
 
-                Mail mail = new Mail { EmailPara = model.Email, Assunto = "Obrigado por se candidatar!" };
+                Mail mail = new Mail { Destinatario = model.Email, Assunto = "Obrigado por se candidatar!" };
 
                 const int media = 7;
                 if (model.Html >= media || model.Css >= media ||

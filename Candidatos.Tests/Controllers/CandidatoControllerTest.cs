@@ -28,7 +28,44 @@ namespace Candidatos.Tests.Controllers
             IHttpActionResult result = controller.PostCandidato(candidato);
             BadRequestErrorMessageResult badRequestErrorMessageResult = result as BadRequestErrorMessageResult;
             Assert.IsNotNull(badRequestErrorMessageResult);
-            Assert.AreEqual("Nome é obrigatório", badRequestErrorMessageResult.Message);
+            Assert.AreEqual("Nome não pode ser nulo.", badRequestErrorMessageResult.Message);
+        }
+
+        [TestMethod]
+        public void EnviarCandidatoSemEmail()
+        {
+            CandidatoModels candidato = new CandidatoModels
+            {
+                Nome = "Rafael Xavier",
+                Css = 5,
+                Html = 5,
+                Javascript = 8
+            };
+            CandidatoController controller = new CandidatoController();
+            controller.ModelState.Clear();
+            IHttpActionResult result = controller.PostCandidato(candidato);
+            BadRequestErrorMessageResult badRequestErrorMessageResult = result as BadRequestErrorMessageResult;
+            Assert.IsNotNull(badRequestErrorMessageResult);
+            Assert.AreEqual("E-mail não pode ser nulo ou inválido.", badRequestErrorMessageResult.Message);
+        }
+
+        [TestMethod]
+        public void EnviarCandidatoComEmailInvalido()
+        {
+            CandidatoModels candidato = new CandidatoModels
+            {
+                Nome = "Rafael Xavier",
+                Email = "rafael@xavier",
+                Css = 5,
+                Html = 5,
+                Javascript = 8
+            };
+            CandidatoController controller = new CandidatoController();
+            controller.ModelState.Clear();
+            IHttpActionResult result = controller.PostCandidato(candidato);
+            BadRequestErrorMessageResult badRequestErrorMessageResult = result as BadRequestErrorMessageResult;
+            Assert.IsNotNull(badRequestErrorMessageResult);
+            Assert.AreEqual("E-mail não pode ser nulo ou inválido.", badRequestErrorMessageResult.Message);
         }
 
         [TestMethod]

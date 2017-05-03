@@ -9,7 +9,7 @@ namespace Candidatos.Core.Util
     public class Mail
     {
         private MailConfiguration _mailConfiguration;
-        public string EmailPara { get; set; }
+        public string Destinatario { get; set; }
         public string Assunto { get; set; }
         public string Body { get; set; }
         /// <summary>
@@ -19,6 +19,7 @@ namespace Candidatos.Core.Util
         public Mail()
         {
             _mailConfiguration = new MailConfiguration();
+            
             string mailConfiguration = ConfigurationSettings.AppSettings["MailConfiguration"];
             if (!string.IsNullOrEmpty(mailConfiguration))
             {
@@ -56,13 +57,13 @@ namespace Candidatos.Core.Util
 
         public void Enviar()
         {
-            if (string.IsNullOrEmpty(EmailPara))
+            if (string.IsNullOrEmpty(Destinatario))
                 throw new Exception("Destinatário não informado.");
             if (string.IsNullOrEmpty(Body))
                 throw new Exception("Corpo do e-mail não informado.");
             if (string.IsNullOrEmpty(Assunto))
                 throw new Exception("Assunto do e-mail não informado.");
-            MailMessage mail = new MailMessage(_mailConfiguration.Email, EmailPara)
+            MailMessage mail = new MailMessage(_mailConfiguration.Email, Destinatario)
             {
                 Subject = Assunto,
                 IsBodyHtml = true,
