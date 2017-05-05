@@ -7,20 +7,7 @@ namespace Candidatos.Core.Tests
     [TestClass]
     public class MailTest
     {
-        [TestMethod]
-        public void EnviarEmailSemSmtpConfigurado()
-        {
-            ConfigurationSettings.AppSettings["MailConfiguration"] = "";
-            try
-            {
-                Mail mail = new Mail { Assunto = "Assunto", Body = "Body", Destinatario = "rafaeltwisted@gmail.com" };
-                mail.Enviar();
-            }
-            catch (Exception e)
-            {
-                Assert.AreEqual("E-mail de envio não configurado.", e.Message);
-            }
-        }
+       
 
         [TestMethod]
         public void EnviarEmailSemAssunto()
@@ -61,6 +48,21 @@ namespace Candidatos.Core.Tests
             catch (Exception e)
             {
                 Assert.AreEqual("Destinatário não informado.", e.Message);
+            }
+        }
+
+        [TestMethod]
+        public void EnviarEmailSemSmtpConfigurado()
+        {
+            ConfigurationSettings.AppSettings["MailConfiguration"] = "";
+            try
+            {
+                Mail mail = new Mail { Assunto = "Assunto", Body = "Body", Destinatario = "rafaeltwisted@gmail.com" };
+                mail.Enviar();
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual("E-mail de envio não configurado.", e.Message);
             }
         }
     }
