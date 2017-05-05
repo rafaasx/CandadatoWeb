@@ -14,7 +14,7 @@ namespace Candidatos.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "Candidatos";
 
             return View();
         }
